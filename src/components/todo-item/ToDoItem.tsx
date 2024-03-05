@@ -1,19 +1,19 @@
-import { useContext, useState } from "react";
-import Button from "react-bootstrap/Button";
-import Col from "react-bootstrap/Col";
-import Form from "react-bootstrap/Form";
-import Row from "react-bootstrap/Row";
-import { TasksContext } from "../../context/TasksContext";
-import { Task } from "../../dtos/Task";
-import "../../assets/styles/buttons.css";
+import { useContext, useState } from "react"
+import Button from "react-bootstrap/Button"
+import Col from "react-bootstrap/Col"
+import Form from "react-bootstrap/Form"
+import Row from "react-bootstrap/Row"
+import { TasksContext } from "../../context/TasksContext"
+import { Task } from "../../dtos/Task"
+import "../../assets/styles/buttons.css"
 
-export function ToDoItemNew() {
-  const [taskName, setTaskName] = useState<string>("");
-  const { onNewTaskAdd } = useContext(TasksContext);
+export function ToDoItemNew(): JSX.Element {
+  const [taskName, setTaskName] = useState<string>("")
+  const { onNewTaskAdd } = useContext(TasksContext)
 
-  const onValueChange = (event: any) => {
-    setTaskName(event.target.value);
-  };
+  const onValueChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    setTaskName(event.target.value)
+  }
 
   return (
     <Row>
@@ -30,8 +30,8 @@ export function ToDoItemNew() {
         <Button
           variant="success"
           onClick={() => {
-            onNewTaskAdd(new Task(taskName));
-            setTaskName("");
+            onNewTaskAdd(new Task(taskName))
+            setTaskName("")
           }}
           disabled={!taskName}
         >
@@ -39,11 +39,11 @@ export function ToDoItemNew() {
         </Button>
       </Col>
     </Row>
-  );
+  )
 }
 
-export function ToDoItemView({ task }: { task: Task }) {
-  const { onTaskRemoval, onTaskStatusChange } = useContext(TasksContext);
+export function ToDoItemView({ task }: { task: Task }): JSX.Element {
+  const { onTaskRemoval, onTaskStatusChange } = useContext(TasksContext)
 
   return (
     <Row
@@ -62,8 +62,8 @@ export function ToDoItemView({ task }: { task: Task }) {
             type="checkbox"
             id="done-action"
             onChange={(event) => {
-              console.log("check box event: ", event);
-              onTaskStatusChange(task.id);
+              console.log("check box event: ", event)
+              onTaskStatusChange(task.id)
             }}
           />
           <Button
@@ -77,5 +77,5 @@ export function ToDoItemView({ task }: { task: Task }) {
         </div>
       </Col>
     </Row>
-  );
+  )
 }

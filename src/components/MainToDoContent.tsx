@@ -1,13 +1,14 @@
-import { useContext } from "react";
-import Col from "react-bootstrap/Col";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import { TasksContext } from "../context/TasksContext";
-import FilterTasksAction from "./actions/FilterTasksAction";
-import { ToDoItemNew, ToDoItemView } from "./todo-item/ToDoItem";
+import { useContext } from "react"
+import Col from "react-bootstrap/Col"
+import Container from "react-bootstrap/Container"
+import Row from "react-bootstrap/Row"
+import { TasksContext } from "../context/TasksContext"
+import FilterTasksAction from "./actions/FilterTasksAction"
+import { ToDoItemNew, ToDoItemView } from "./todo-item/ToDoItem"
+import { Task } from "../dtos/Task"
 
-export default function MainToDoContent() {
-  const { tasks } = useContext(TasksContext);
+export default function MainToDoContent(): JSX.Element {
+  const { tasks } = useContext(TasksContext)
 
   return (
     <>
@@ -20,10 +21,10 @@ export default function MainToDoContent() {
       <Container className="todos-container">
         <h2>Todos</h2>
         {!tasks.length && <i>No todos at the moment</i>}
-        {tasks.map((task) => (
-          <ToDoItemView task={task} />
-        ))}
+        {tasks.map((task: Task) => 
+          <ToDoItemView key={task.id} task={task} />
+        )}
       </Container>
     </>
-  );
+  )
 }

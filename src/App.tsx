@@ -1,11 +1,11 @@
-import "bootstrap/dist/css/bootstrap.min.css";
-import "./App.css";
-import "./assets/styles/containers.css";
-import MainToDoContent from "./components/MainToDoContent";
-import Container from "react-bootstrap/Container";
-import { TasksProvider } from "./context/TasksContext";
+import "bootstrap/dist/css/bootstrap.min.css"
+import "./App.css"
+import "./assets/styles/containers.css"
+import MainToDoContent from "./components/MainToDoContent"
+import Container from "react-bootstrap/Container"
+import { TasksProvider } from "./context/TasksContext"
 
-function App() {
+function App(): JSX.Element {
   return (
     <Container fluid="sm">
       <h1 className="app_heading">To-do list</h1>
@@ -13,7 +13,7 @@ function App() {
         <MainToDoContent />
       </TasksProvider>
     </Container>
-  );
+  )
 }
 
-export default App;
+export default App
