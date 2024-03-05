@@ -1,9 +1,9 @@
-import "bootstrap/dist/css/bootstrap.min.css"
-import "./App.css"
-import "./assets/styles/containers.css"
-import MainToDoContent from "./components/MainToDoContent"
-import Container from "react-bootstrap/Container"
-import { TasksProvider } from "./context/TasksContext"
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
+import "./assets/styles/containers.css";
+import MainToDoContent from "./components/MainToDoContent";
+import Container from "react-bootstrap/Container";
+import { TasksProvider } from "./context/TasksContext";
 
 function App(): JSX.Element {
   return (
@@ -13,7 +13,7 @@ function App(): JSX.Element {
         <MainToDoContent />
       </TasksProvider>
     </Container>
-  )
+  );
 }
 
-export default App
+export default App;
