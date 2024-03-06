@@ -1,48 +1,59 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
+import { useForm } from "react-hook-form";
+import cancelSvg from "../../assets/images/cancel-svgrepo-com.svg";
+import "../../assets/styles/buttons.css";
+import { APP_CONSTANTS } from "../../constants";
 import { TasksContext } from "../../context/TasksContext";
 import { Task } from "../../dtos/Task";
-import "../../assets/styles/buttons.css";
 
-export function ToDoItemNew() {
-  const [taskName, setTaskName] = useState<string>("");
+export function ToDoItemNew(): JSX.Element {
   const { onNewTaskAdd } = useContext(TasksContext);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
 
-  const onValueChange = (event: any) => {
-    setTaskName(event.target.value);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleAddTask = (data: any): void => {
+    onNewTaskAdd(new Task(data.taskName));
+    reset({ taskName: "" });
   };
 
   return (
-    <Row>
-      <Col xs={7} md={10}>
-        <Form.Control
-          type="text"
-          placeholder="Add task to the list"
-          value={taskName}
-          required={true}
-          onChange={onValueChange}
-        />
-      </Col>
-      <Col xs={5} md={2}>
-        <Button
-          variant="success"
-          onClick={() => {
-            onNewTaskAdd(new Task(taskName));
-            setTaskName("");
-          }}
-          disabled={!taskName}
-        >
-          + Add task
-        </Button>
-      </Col>
-    </Row>
+    <Form onSubmit={handleSubmit(handleAddTask)}>
+      <Row>
+        <Col xs={7} md={10}>
+          <Form.Control
+            type="text"
+            placeholder="Add task to the list"
+            {...register("taskName", {
+              required: true,
+              maxLength: APP_CONSTANTS.taskNameMaxLength,
+            })}
+          />
+          {errors.taskName && (
+            <p className="task_name_error">
+              {APP_CONSTANTS.maxLengthValidation}
+            </p>
+          )}
+        </Col>
+        <Col xs={5} md={2}>
+          <Button variant="success" type="submit" disabled={!!errors.taskName}>
+            {APP_CONSTANTS.addTaskLabel}
+          </Button>
+        </Col>
+      </Row>
+    </Form>
   );
 }
 
-export function ToDoItemView({ task }: { task: Task }) {
+export function ToDoItemView({ task }: { task: Task }): JSX.Element {
   const { onTaskRemoval, onTaskStatusChange } = useContext(TasksContext);
 
   return (
@@ -50,29 +61,20 @@ export function ToDoItemView({ task }: { task: Task }) {
       className={`todo-container todo-container-rounded todo-container-y-spacing ${
         task.completed ? "todo-done" : ""
       }`}
+      onClick={() => onTaskStatusChange(task.id)}
     >
       <Col xs={7} md={10}>
         {task.name}
       </Col>
       <Col xs={5} md={2}>
         <div className="row-flex">
-          <Form.Check
-            inline
-            name="done"
-            type="checkbox"
-            id="done-action"
-            onChange={(event) => {
-              console.log("check box event: ", event);
-              onTaskStatusChange(task.id);
-            }}
-          />
           <Button
             variant="light"
             className="icon-light"
             size="sm"
             onClick={() => onTaskRemoval(task.id)}
           >
-            <img src="./images/cancel-svgrepo-com.svg" alt="check-svg"></img>
+            <img src={cancelSvg} alt="cancel-svg"></img>
           </Button>
         </div>
       </Col>

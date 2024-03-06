@@ -5,3 +5,7 @@
 .app_top_actions {
   padding: 1em 0.8em;
 }
+
+.task_name_error {
+  color: red;
+}

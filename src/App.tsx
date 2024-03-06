@@ -5,7 +5,7 @@ import MainToDoContent from "./components/MainToDoContent";
 import Container from "react-bootstrap/Container";
 import { TasksProvider } from "./context/TasksContext";
 
-function App() {
+function App(): JSX.Element {
   return (
     <Container fluid="sm">
       <h1 className="app_heading">To-do list</h1>
