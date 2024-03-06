@@ -8,6 +8,7 @@ import "../../assets/styles/buttons.css";
 import { APP_CONSTANTS } from "../../constants";
 import { TasksContext } from "../../context/TasksContext";
 import { Task } from "../../dtos/Task";
+import cancelSvg from "../../assets/images/cancel-svgrepo-com.svg";
 
 export function ToDoItemNew(): JSX.Element {
   const { onNewTaskAdd } = useContext(TasksContext);
@@ -77,7 +78,7 @@ export function ToDoItemView({ task }: { task: Task }): JSX.Element {
             size="sm"
             onClick={() => onTaskRemoval(task.id)}
           >
-            <img src="./images/cancel-svgrepo-com.svg" alt="check-svg"></img>
+            <img src={cancelSvg} alt="cancel-svg"></img>
           </Button>
         </div>
       </Col>
