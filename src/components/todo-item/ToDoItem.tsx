@@ -4,11 +4,11 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import { useForm } from "react-hook-form";
+import cancelSvg from "../../assets/images/cancel-svgrepo-com.svg";
 import "../../assets/styles/buttons.css";
 import { APP_CONSTANTS } from "../../constants";
 import { TasksContext } from "../../context/TasksContext";
 import { Task } from "../../dtos/Task";
-import cancelSvg from "../../assets/images/cancel-svgrepo-com.svg";
 
 export function ToDoItemNew(): JSX.Element {
   const { onNewTaskAdd } = useContext(TasksContext);
@@ -61,19 +61,13 @@ export function ToDoItemView({ task }: { task: Task }): JSX.Element {
       className={`todo-container todo-container-rounded todo-container-y-spacing ${
         task.completed ? "todo-done" : ""
       }`}
+      onClick={() => onTaskStatusChange(task.id)}
     >
       <Col xs={7} md={10}>
         {task.name}
       </Col>
       <Col xs={5} md={2}>
         <div className="row-flex">
-          <Form.Check
-            inline
-            name="done"
-            type="checkbox"
-            id="done-action"
-            onChange={() => onTaskStatusChange(task.id)}
-          />
           <Button
             variant="light"
             className="icon-light"
