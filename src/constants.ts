@@ -1,5 +1,5 @@
 export const APP_CONSTANTS = {
   addTaskLabel: "+ Add task",
-  taskMinLength: 7,
-  minLengthValidation: "Name of task must be more than 7 characters",
+  taskNameMaxLength: 25,
+  maxLengthValidation: "Name of task must not be more than 25 characters",
 };
