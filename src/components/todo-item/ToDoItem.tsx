@@ -44,7 +44,7 @@ export function ToDoItemNew(): JSX.Element {
           )}
         </Col>
         <Col xs={5} md={2}>
-          <Button variant="success" type="submit">
+          <Button variant="success" type="submit" disabled={!!errors.taskName}>
             {APP_CONSTANTS.addTaskLabel}
           </Button>
         </Col>
