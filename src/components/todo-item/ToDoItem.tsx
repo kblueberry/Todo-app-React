@@ -15,12 +15,14 @@ export function ToDoItemNew(): JSX.Element {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleAddTask = (data: any): void => {
     onNewTaskAdd(new Task(data.taskName));
+    reset({ taskName: "" });
   };
 
   return (

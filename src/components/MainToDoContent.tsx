@@ -6,6 +6,7 @@ import { TasksContext } from "../context/TasksContext";
 import FilterTasksAction from "./actions/FilterTasksAction";
 import { ToDoItemNew, ToDoItemView } from "./todo-item/ToDoItem";
 import { Task } from "../dtos/Task";
+import { APP_CONSTANTS } from "../constants";
 
 export default function MainToDoContent(): JSX.Element {
   const { tasks } = useContext(TasksContext);
@@ -19,11 +20,11 @@ export default function MainToDoContent(): JSX.Element {
       </Row>
       <ToDoItemNew />
       <Container className="todos-container">
-        <h2>Todos</h2>
-        {!tasks.length && <i>No todos at the moment</i>}
-        {tasks.map((task: Task) => 
+        <h2>{APP_CONSTANTS.todosHeading}</h2>
+        {!tasks.length && <i>{APP_CONSTANTS.noTasksPlaceholder}</i>}
+        {tasks.map((task: Task) => (
           <ToDoItemView key={task.id} task={task} />
-        )}
+        ))}
       </Container>
     </>
   );
