@@ -7,6 +7,6 @@ export enum ActionNames {
 
 export enum FilterCriteria {
   All = "all",
-  Done = "done",
-  Incomplete = "incomplete",
+  Completed = "completed",
+  Current = "current",
 }

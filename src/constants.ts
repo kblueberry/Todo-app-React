@@ -7,7 +7,7 @@ export const APP_CONSTANTS = {
   filterTasksLabel: "Filter tasks",
   tasksLabels: {
     all: "All",
-    incomplete: "Incomplete",
-    done: "Done",
+    current: "Current",
+    completed: "Completed",
   },
 };

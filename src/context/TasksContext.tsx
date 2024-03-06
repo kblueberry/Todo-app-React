@@ -5,16 +5,16 @@ import { FilterCriteria } from "../enums/Actions";
 type TaskFunction = (arg: string) => void;
 
 type TaskProviderProps = {
-  children: ReactNode
+  children: ReactNode;
 };
 
 type TasksState = {
-  tasks: Array<Task>
-  initialTasks: Array<Task>
-  onNewTaskAdd: (arg: Task) => void
-  onTaskRemoval: TaskFunction
-  onTaskStatusChange: TaskFunction
-  onTasksFiltering: TaskFunction
+  tasks: Array<Task>;
+  initialTasks: Array<Task>;
+  onNewTaskAdd: (arg: Task) => void;
+  onTaskRemoval: TaskFunction;
+  onTaskStatusChange: TaskFunction;
+  onTasksFiltering: TaskFunction;
 };
 
 const initialTasksState = {
@@ -35,26 +35,26 @@ export const TasksProvider = ({ children }: TaskProviderProps): JSX.Element => {
   });
 
   const onNewTaskAdd = (task: Task): void => {
-    setTasksState((prev) => {
+    setTasksState(prev => {
       const changedTasks = prev.tasks.concat([task]);
       return { ...prev, tasks: changedTasks, initialTasks: changedTasks };
     });
   };
 
   const onTaskRemoval = (id: string): void => {
-    setTasksState((prev) => {
-      const changedTasks = prev.tasks.filter((task) => task.id !== id);
+    setTasksState(prev => {
+      const changedTasks = prev.tasks.filter(task => task.id !== id);
       return { ...prev, tasks: changedTasks, initialTasks: changedTasks };
     });
   };
 
   const onTaskStatusChange = (taskId: string): void => {
-    const taskToChange = tasksState.tasks.find((task) => task.id === taskId);
+    const taskToChange = tasksState.tasks.find(task => task.id === taskId);
     if (taskToChange) {
       taskToChange.completed = !taskToChange.completed;
     }
 
-    setTasksState((prev) => {
+    setTasksState(prev => {
       const tasksCopy = [...prev.tasks];
       return { ...prev, tasks: tasksCopy, initialTasks: tasksCopy };
     });
@@ -64,17 +64,17 @@ export const TasksProvider = ({ children }: TaskProviderProps): JSX.Element => {
     let filtered = [];
 
     if (filterOption === FilterCriteria.All) {
-      setTasksState((prev) => {
+      setTasksState(prev => {
         return { ...prev, tasks: prev.initialTasks };
       });
-    } else if (filterOption === FilterCriteria.Done) {
-      setTasksState((prev) => {
-        filtered = [...prev.initialTasks].filter((task) => task.completed);
+    } else if (filterOption === FilterCriteria.Completed) {
+      setTasksState(prev => {
+        filtered = [...prev.initialTasks].filter(task => task.completed);
         return { ...prev, tasks: filtered };
       });
     } else {
-      setTasksState((prev) => {
-        filtered = [...prev.initialTasks].filter((task) => !task.completed);
+      setTasksState(prev => {
+        filtered = [...prev.initialTasks].filter(task => !task.completed);
         return { ...prev, tasks: filtered };
       });
     }

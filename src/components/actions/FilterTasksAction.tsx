@@ -18,11 +18,11 @@ export default function FilterTasksAction(): JSX.Element {
       <option value={FilterCriteria.All}>
         {APP_CONSTANTS.tasksLabels.all}
       </option>
-      <option value={FilterCriteria.Done}>
-        {APP_CONSTANTS.tasksLabels.done}
+      <option value={FilterCriteria.Completed}>
+        {APP_CONSTANTS.tasksLabels.completed}
       </option>
-      <option value={FilterCriteria.Incomplete}>
-        {APP_CONSTANTS.tasksLabels.incomplete}
+      <option value={FilterCriteria.Current}>
+        {APP_CONSTANTS.tasksLabels.current}
       </option>
     </Form.Select>
   );
