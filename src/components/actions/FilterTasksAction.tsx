@@ -28,7 +28,6 @@ export default function FilterTasksAction(): JSX.Element {
       value={criteria}
       onChange={event => filter(event.target.value)}
     >
-      <option disabled>{APP_CONSTANTS.filterTasksLabel}</option>
       <option value={FilterCriteria.All}>
         {APP_CONSTANTS.tasksLabels.all} ({all})
       </option>
