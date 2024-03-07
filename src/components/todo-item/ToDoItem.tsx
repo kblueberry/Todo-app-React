@@ -10,6 +10,7 @@ import { APP_CONSTANTS } from "../../constants";
 import { Task } from "../../dtos/Task";
 import { useAppDispatch } from "../../store/hooks";
 import { add, changeTaskStatus, remove } from "../../store/tasksReducer";
+import { useCallback } from "react";
 
 export function ToDoItemNew(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -22,7 +23,7 @@ export function ToDoItemNew(): JSX.Element {
   } = useForm();
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handleAddTask = (data: any): void => {
+  const handleAddTask = useCallback((data: any): void => {
     const newTask = {
       id: uuidv4(),
       completed: false,
@@ -30,7 +31,7 @@ export function ToDoItemNew(): JSX.Element {
     };
     dispatch(add(newTask));
     reset({ taskName: "" });
-  };
+  }, []);
 
   return (
     <Form onSubmit={handleSubmit(handleAddTask)}>
@@ -63,13 +64,13 @@ export function ToDoItemNew(): JSX.Element {
 export function ToDoItemView({ task }: { task: Task }): JSX.Element {
   const dispatch = useAppDispatch();
 
-  const removeTask = (id: string): void => {
+  const removeTask = useCallback((id: string): void => {
     dispatch(remove(id));
-  };
+  }, []);
 
-  const toggleTaskStatus = (id: string): void => {
+  const toggleTaskStatus = useCallback((id: string): void => {
     dispatch(changeTaskStatus(id));
-  };
+  }, []);
 
   return (
     <Row

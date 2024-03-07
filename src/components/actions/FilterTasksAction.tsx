@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import Form from "react-bootstrap/Form";
 import { APP_CONSTANTS } from "../../constants";
 import { FilterCriteria } from "../../enums/Actions";
@@ -19,9 +19,9 @@ export default function FilterTasksAction(): JSX.Element {
     [tasks]
   );
 
-  const filter = (criteria: string): void => {
+  const filter = useCallback((criteria: string): void => {
     dispatch(filterTasks(criteria));
-  };
+  }, []);
 
   return (
     <Form.Select
