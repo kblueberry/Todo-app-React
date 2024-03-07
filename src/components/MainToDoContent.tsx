@@ -2,13 +2,14 @@ import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import { APP_CONSTANTS } from "../constants";
-import { Task } from "../dtos/Task";
-import { useAppSelector } from "../store/hooks";
+import { Task } from "../types/Task";
+import { selectActiveTasks } from "../selectors/tasks";
 import FilterTasksAction from "./actions/FilterTasksAction";
 import { ToDoItemNew, ToDoItemView } from "./todo-item/ToDoItem";
+import { useAppSelector } from "../store/hooks";
 
 export default function MainToDoContent(): JSX.Element {
-  const tasks = useAppSelector(state => state.tasks.tasks);
+  const tasks = useAppSelector(selectActiveTasks);
 
   return (
     <>

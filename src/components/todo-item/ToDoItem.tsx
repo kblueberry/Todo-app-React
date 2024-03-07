@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 import cancelSvg from "../../assets/images/cancel-svgrepo-com.svg";
 import "../../assets/styles/buttons.css";
 import { APP_CONSTANTS } from "../../constants";
-import { Task } from "../../dtos/Task";
+import { Task } from "../../types/Task";
 import { useAppDispatch } from "../../store/hooks";
 import { add, changeTaskStatus, remove } from "../../store/tasksReducer";
 import { useCallback } from "react";
