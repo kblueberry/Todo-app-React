@@ -30,5 +30,6 @@ module.exports = {
     "react/react-in-jsx-scope": "off",
     "@typescript-eslint/no-extra-parens": "off",
     "@typescript-eslint/semi": ["error", "always"],
+    "@typescript-eslint/member-delimiter-style": "off",
   },
 };

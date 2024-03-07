@@ -1,11 +1,13 @@
-import { useContext, useMemo } from "react";
+import { useMemo } from "react";
 import Form from "react-bootstrap/Form";
-import { TasksContext } from "../../context/TasksContext";
-import { FilterCriteria } from "../../enums/Actions";
 import { APP_CONSTANTS } from "../../constants";
+import { FilterCriteria } from "../../enums/Actions";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { filterTasks } from "../../store/tasksReducer";
 
 export default function FilterTasksAction(): JSX.Element {
-  const { onTasksFiltering, tasks } = useContext(TasksContext);
+  const dispatch = useAppDispatch();
+  const tasks = useAppSelector(state => state.tasks.tasks);
 
   const completedTasksCount = useMemo(
     () => tasks.filter(task => task.completed)?.length,
@@ -17,12 +19,14 @@ export default function FilterTasksAction(): JSX.Element {
     [tasks]
   );
 
+  const filter = (criteria: string): void => {
+    dispatch(filterTasks(criteria));
+  };
+
   return (
     <Form.Select
-      defaultValue="Filter tasks"
-      onChange={event => {
-        onTasksFiltering(event.target.value);
-      }}
+      defaultValue={APP_CONSTANTS.filterDefaultPlaceholder}
+      onChange={event => filter(event.target.value)}
     >
       <option disabled>{APP_CONSTANTS.filterTasksLabel}</option>
       <option value={FilterCriteria.All}>

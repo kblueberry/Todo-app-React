@@ -10,4 +10,5 @@ export const APP_CONSTANTS = {
     current: "Current",
     completed: "Completed",
   },
+  filterDefaultPlaceholder: "Filter tasks",
 };

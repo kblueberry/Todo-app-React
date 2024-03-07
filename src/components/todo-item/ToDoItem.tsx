@@ -1,17 +1,19 @@
-import { useContext } from "react";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import { useForm } from "react-hook-form";
+import { v4 as uuidv4 } from "uuid";
 import cancelSvg from "../../assets/images/cancel-svgrepo-com.svg";
 import "../../assets/styles/buttons.css";
 import { APP_CONSTANTS } from "../../constants";
-import { TasksContext } from "../../context/TasksContext";
 import { Task } from "../../dtos/Task";
+import { useAppDispatch } from "../../store/hooks";
+import { add, changeTaskStatus, remove } from "../../store/tasksReducer";
 
 export function ToDoItemNew(): JSX.Element {
-  const { onNewTaskAdd } = useContext(TasksContext);
+  const dispatch = useAppDispatch();
+
   const {
     register,
     handleSubmit,
@@ -21,7 +23,12 @@ export function ToDoItemNew(): JSX.Element {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleAddTask = (data: any): void => {
-    onNewTaskAdd(new Task(data.taskName));
+    const newTask = {
+      id: uuidv4(),
+      completed: false,
+      name: data.taskName,
+    };
+    dispatch(add(newTask));
     reset({ taskName: "" });
   };
 
@@ -54,14 +61,22 @@ export function ToDoItemNew(): JSX.Element {
 }
 
 export function ToDoItemView({ task }: { task: Task }): JSX.Element {
-  const { onTaskRemoval, onTaskStatusChange } = useContext(TasksContext);
+  const dispatch = useAppDispatch();
+
+  const removeTask = (id: string): void => {
+    dispatch(remove(id));
+  };
+
+  const toggleTaskStatus = (id: string): void => {
+    dispatch(changeTaskStatus(id));
+  };
 
   return (
     <Row
       className={`todo-container todo-container-rounded todo-container-y-spacing ${
         task.completed ? "todo-done" : ""
       }`}
-      onClick={() => onTaskStatusChange(task.id)}
+      onClick={() => toggleTaskStatus(task.id)}
     >
       <Col xs={7} md={10}>
         {task.name}
@@ -72,7 +87,7 @@ export function ToDoItemView({ task }: { task: Task }): JSX.Element {
             variant="light"
             className="icon-light"
             size="sm"
-            onClick={() => onTaskRemoval(task.id)}
+            onClick={() => removeTask(task.id)}
           >
             <img src={cancelSvg} alt="cancel-svg"></img>
           </Button>
