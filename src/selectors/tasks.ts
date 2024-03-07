@@ -30,3 +30,18 @@ export const selectActiveTasks = createSelector(
   [selectCriteria, selectTasks],
   (criteria, tasks) => tasks.filter(getFilter(criteria))
 );
+
+export const selectAllNumber = createSelector(
+  [selectTasks],
+  tasks => tasks.length
+);
+
+export const selectCompletedNumber = createSelector(
+  [selectTasks],
+  tasks => tasks.filter(getFilter(FilterCriteria.Completed)).length
+);
+
+export const selectCurrentNumber = createSelector(
+  [selectTasks],
+  tasks => tasks.filter(getFilter(FilterCriteria.Current)).length
+);
